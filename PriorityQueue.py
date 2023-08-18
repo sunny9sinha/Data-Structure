@@ -1,4 +1,4 @@
-class ArrayQueue:
+class PriorityQueue:
     array = None
     start = None
     end = None
@@ -11,12 +11,19 @@ class ArrayQueue:
             self.end = 0
             self.start = 0
             self.array[self.end] = i
+            return
         else:
             if (len(self.array) <= self.end +1):
                 print("queue is full")
             else:
                 self.end = self.end + 1
-                self.array[self.end] = i
+                j = self.end
+                while(i<self.array[j-1]):
+                    self.array[j] = self.array[j-1]
+                    j = j - 1
+                    if (j==0):
+                        break
+                self.array[j] = i
     
     def dequeue(self):
         if (self.start == None):
@@ -44,36 +51,32 @@ class ArrayQueue:
             return False
         return len(self.array) <= self.end-self.start+1
     
+
 if __name__ == '__main__':
-    AQ = ArrayQueue(4)
-    AQ.enqueue(1)
-    AQ.enqueue(2)
-    AQ.enqueue(3)
-    AQ.enqueue(4)
+    pq = PriorityQueue(5)
+    pq.enqueue(1)
+    pq.enqueue(3)
+    pq.enqueue(4)
+    pq.enqueue(5)
 
-    AQ.enqueue(5)
+    pq.enqueue(2)
 
-    print("IS Queue Full? ", AQ.isFull())
+    print("IS Queue Full? ", pq.isFull())
 
-    print("IS Queue Empty? ", AQ.isEmpty())
-    print("Peeking: ", AQ.peek())
+    print("IS Queue Empty? ", pq.isEmpty())
+    print("Peeking: ", pq.peek())
     
-    print(AQ.dequeue())
-    print(AQ.dequeue())
-    print("IS Queue Empty? ", AQ.isEmpty())
-    print("Peeking: ", AQ.peek())
-    print(AQ.dequeue())
-    print(AQ.dequeue())
+    print(pq.dequeue())
+    print(pq.dequeue())
+    print("IS Queue Empty? ", pq.isEmpty())
+    print("Peeking: ", pq.peek())
+    print(pq.dequeue())
+    print(pq.dequeue())
+    print(pq.dequeue())
 
-    print("IS Queue Empty? ", AQ.isEmpty())
-    print("Peeking: ", AQ.peek())
-    print("IS Queue Full? ", AQ.isFull())
+    print("IS Queue Empty? ", pq.isEmpty())
+    print("Peeking: ", pq.peek())
+    print("IS Queue Full? ", pq.isFull())
 
-    AQ.enqueue(6)
-    print("Peeking: ", AQ.peek())
-    
-
-
-
-
-        
+    pq.enqueue(6)
+    print("Peeking: ", pq.peek())
